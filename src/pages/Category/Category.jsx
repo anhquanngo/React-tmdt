@@ -1,22 +1,24 @@
 import React from "react";
-import { ProductItem } from "../../components";
+import { ProductItem, Pagination } from "../../components";
 
 class Category extends React.PureComponent {
   render() {
-    const { products, name } = this.props;
-    console.log("Category -> render -> products", products);
+    const { products, name, pages } = this.props;
     return (
-      <div className="products">
-        <div id="search-result">
-          Category: <span>{name}</span>
+      <>
+        <div className="products">
+          <div id="search-result">
+            Category: <span>{name}</span>
+          </div>
+          <div className="product-list card-deck">
+            {products &&
+              products.map((product) => (
+                <ProductItem key={product._id} item={product} />
+              ))}
+          </div>
         </div>
-        <div className="product-list card-deck">
-          {products &&
-            products.map((product) => (
-              <ProductItem key={product._id} item={product} />
-            ))}
-        </div>
-      </div>
+        <Pagination pages={pages} />
+      </>
     );
   }
 }

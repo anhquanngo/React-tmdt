@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import Category from "./Category";
 import _ from "lodash";
@@ -7,29 +8,35 @@ import {
 } from "../../services/Server";
 
 function CategoryContainer(props) {
-  const [products, updateProducts] = React.useState([]);
-  const [name, updateName] = React.useState(null);
-
+  const search = new URLSearchParams(props.location.search);
+  const page = search.get("page");
   const id = _.get(props, "match.params.id");
 
-  //
+  const [products, updateProducts] = React.useState([]);
+  const [name, updateName] = React.useState(null);
+  const [pages, updatePages] = React.useState({
+    currentPage: 1,
+    limit: 12,
+  });
+
+  const callData = async () => {
+    const name = await getDetailCategory(id).then(({ data }) => data.data.name);
+    const data = await getProductsByCategory(id, {
+      params: { limit: pages.limit, page: page },
+    }).then(({ data }) => data.data);
+    updateProducts(data.docs);
+    updatePages({ ...pages, ...data.pages });
+    updateName(name);
+  };
+
   React.useEffect(() => {
-    async function a() {
-      const name = await getDetailCategory(id).then(
-        ({ data }) => data.data.name
-      );
-      const products = await getProductsByCategory(id, {
-        params: { limit: 12 },
-      }).then(({ data }) => data.data.docs);
-      updateProducts(products);
-      updateName(name);
-    }
-    a();
-  }, [id]);
+    callData();
+  }, [id, page]);
 
   const _exTract = () => ({
     products,
     name,
+    pages,
   });
 
   return <Category {..._exTract()} />;
