@@ -1,8 +1,24 @@
 import React from "react";
 import logo from "../../assets/images/logo.png";
+import { withRouter } from "react-router-dom";
 
 class Header extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      keyWord: "",
+    };
+  }
+
+  onSubmitSearch = (e) => {
+    e.preventDefault();
+    const { history } = this.props;
+    history.push(`/search?q=${this.state.keyWord}`);
+  };
+
   render() {
+    console.log(this.props);
     return (
       <>
         <div id="header">
@@ -22,8 +38,14 @@ class Header extends React.Component {
                     type="search"
                     placeholder="Tìm kiếm"
                     aria-label="Search"
+                    onChange={(e) => this.setState({ keyWord: e.target.value })}
+                    value={this.state.keyWord}
                   />
-                  <button className="btn btn-danger mt-3" type="submit">
+                  <button
+                    className="btn btn-danger mt-3"
+                    type="submit"
+                    onClick={this.onSubmitSearch}
+                  >
                     Tìm kiếm
                   </button>
                 </form>
@@ -51,4 +73,4 @@ class Header extends React.Component {
   }
 }
 
-export default Header;
+export default withRouter(Header);
