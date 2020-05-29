@@ -7,7 +7,6 @@ class Home extends React.Component {
       return <ProductItem key={product._id} item={product} />;
     });
   };
-
   render() {
     const { newProducts, featureProducts } = this.props;
     return (

@@ -3,6 +3,13 @@ import { Header, Footer, Menu, Slider, SideBar } from "./components/layout";
 import { BrowserRouter } from "react-router-dom";
 import AppRouter from "./routers";
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      time: 0,
+    };
+  }
+
   render() {
     return (
       <BrowserRouter>

@@ -2,7 +2,14 @@ import React from "react";
 import { getImageUrl } from "../../shared/utils";
 class Detail extends React.Component {
   render() {
-    const { product, isStock } = this.props;
+    const {
+      product,
+      isStock,
+      comments,
+      inputs,
+      onChangeInput,
+      onSubmitForm,
+    } = this.props;
     return (
       <>
         <div>
@@ -66,33 +73,43 @@ class Detail extends React.Component {
                   <div className="form-group">
                     <label>Tên:</label>
                     <input
-                      name="comm_name"
+                      name="name"
                       required
                       type="text"
                       className="form-control"
+                      value={inputs.name}
+                      onChange={onChangeInput}
                     />
                   </div>
                   <div className="form-group">
                     <label>Email:</label>
                     <input
-                      name="comm_mail"
+                      name="email"
                       required
                       type="email"
                       className="form-control"
                       id="pwd"
+                      value={inputs.email}
+                      onChange={onChangeInput}
                     />
                   </div>
                   <div className="form-group">
                     <label>Nội dung:</label>
                     <textarea
-                      name="comm_details"
+                      name="content"
                       required
                       rows={8}
                       className="form-control"
-                      defaultValue={""}
-                    />
+                      onChange={onChangeInput}
+                      value={inputs.content}
+                    ></textarea>
                   </div>
-                  <button type="submit" name="sbm" className="btn btn-primary">
+                  <button
+                    type="submit"
+                    onClick={onSubmitForm}
+                    name="sbm"
+                    className="btn btn-primary"
+                  >
                     Gửi
                   </button>
                 </form>
@@ -102,86 +119,21 @@ class Detail extends React.Component {
             {/*	Comments List	*/}
             <div id="comments-list" className="row">
               <div className="col-lg-12 col-md-12 col-sm-12">
-                <div className="comment-item">
-                  <ul>
-                    <li>
-                      <b>Nguyễn Văn A</b>
-                    </li>
-                    <li>2018-01-03 20:40:10</li>
-                    <li>
-                      <p>
-                        Kiểu dáng đẹp, cảm ứng rất nhạy, cầm trên tay cảm giác
-                        không bị cấn. Chụp ảnh tương đối nét, chơi game rất phê.
-                        Nếu giá mềm một chút thì sẽ bán khá chạy. Một sản phẩm
-                        tốt mà mọi người có thể cân nhắc.
-                      </p>
-                    </li>
-                  </ul>
-                </div>
-                <div className="comment-item">
-                  <ul>
-                    <li>
-                      <b>Nguyễn Văn A</b>
-                    </li>
-                    <li>2018-01-03 20:40:10</li>
-                    <li>
-                      <p>
-                        Kiểu dáng đẹp, cảm ứng rất nhạy, cầm trên tay cảm giác
-                        không bị cấn. Chụp ảnh tương đối nét, chơi game rất phê.
-                        Nếu giá mềm một chút thì sẽ bán khá chạy. Một sản phẩm
-                        tốt mà mọi người có thể cân nhắc.
-                      </p>
-                    </li>
-                  </ul>
-                </div>
-                <div className="comment-item">
-                  <ul>
-                    <li>
-                      <b>Nguyễn Văn A</b>
-                    </li>
-                    <li>2018-01-03 20:40:10</li>
-                    <li>
-                      <p>
-                        Kiểu dáng đẹp, cảm ứng rất nhạy, cầm trên tay cảm giác
-                        không bị cấn. Chụp ảnh tương đối nét, chơi game rất phê.
-                        Nếu giá mềm một chút thì sẽ bán khá chạy. Một sản phẩm
-                        tốt mà mọi người có thể cân nhắc.
-                      </p>
-                    </li>
-                  </ul>
-                </div>
-                <div className="comment-item">
-                  <ul>
-                    <li>
-                      <b>Nguyễn Văn A</b>
-                    </li>
-                    <li>2018-01-03 20:40:10</li>
-                    <li>
-                      <p>
-                        Kiểu dáng đẹp, cảm ứng rất nhạy, cầm trên tay cảm giác
-                        không bị cấn. Chụp ảnh tương đối nét, chơi game rất phê.
-                        Nếu giá mềm một chút thì sẽ bán khá chạy. Một sản phẩm
-                        tốt mà mọi người có thể cân nhắc.
-                      </p>
-                    </li>
-                  </ul>
-                </div>
-                <div className="comment-item">
-                  <ul>
-                    <li>
-                      <b>Nguyễn Văn A</b>
-                    </li>
-                    <li>2018-01-03 20:40:10</li>
-                    <li>
-                      <p>
-                        Kiểu dáng đẹp, cảm ứng rất nhạy, cầm trên tay cảm giác
-                        không bị cấn. Chụp ảnh tương đối nét, chơi game rất phê.
-                        Nếu giá mềm một chút thì sẽ bán khá chạy. Một sản phẩm
-                        tốt mà mọi người có thể cân nhắc.
-                      </p>
-                    </li>
-                  </ul>
-                </div>
+                {comments &&
+                  comments.length &&
+                  comments.map((comment) => (
+                    <div className="comment-item">
+                      <ul>
+                        <li>
+                          <b>{comment.name}</b>
+                        </li>
+                        <li>{comment.data}</li>
+                        <li>
+                          <p>{comment.content}</p>
+                        </li>
+                      </ul>
+                    </div>
+                  ))}
               </div>
             </div>
             {/*	End Comments List	*/}
