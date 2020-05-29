@@ -1,13 +1,14 @@
 import React from "react";
 import { ProductItem } from "../../components";
 
-class Search extends React.Component {
+class Category extends React.PureComponent {
   render() {
-    const { products } = this.props;
+    const { products, name } = this.props;
+    console.log("Category -> render -> products", products);
     return (
       <div className="products">
         <div id="search-result">
-          Kết quả tìm kiếm với từ khóa: <span></span>
+          Category: <span>{name}</span>
         </div>
         <div className="product-list card-deck">
           {products &&
@@ -20,4 +21,4 @@ class Search extends React.Component {
   }
 }
 
-export default Search;
+export default Category;

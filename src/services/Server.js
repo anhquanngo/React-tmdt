@@ -15,3 +15,15 @@ export const getCommentProduct = function(id, config) {
 export const createComment = function(id, data = {}, config = {}) {
   return Http.post(`/products/${id}/comments`, data, config);
 };
+
+export const getCategories = function(config = {}) {
+  return Http.get("/categories", config);
+};
+
+export const getDetailCategory = function(id, config = {}) {
+  return Http.get(`/categories/${id}`, config);
+};
+
+export const getProductsByCategory = function(id, config = {}) {
+  return Http.get(`/categories/${id}/products`, config);
+};
