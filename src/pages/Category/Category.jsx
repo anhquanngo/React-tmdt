@@ -1,9 +1,9 @@
 import React from "react";
-import { ProductItem, Pagination } from "../../components";
+import { ProductItem, Pagination, ProductItemSkeleton } from "../../components";
 
 class Category extends React.PureComponent {
   render() {
-    const { products, name, pages } = this.props;
+    const { products, name, pages, loading } = this.props;
     return (
       <>
         <div className="products">
@@ -11,10 +11,11 @@ class Category extends React.PureComponent {
             Category: <span>{name}</span>
           </div>
           <div className="product-list card-deck">
-            {products &&
+            {(!loading &&
+              products &&
               products.map((product) => (
                 <ProductItem key={product._id} item={product} />
-              ))}
+              ))) || <ProductItemSkeleton loop={12} />}
           </div>
         </div>
         <Pagination pages={pages} />

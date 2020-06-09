@@ -18,8 +18,11 @@ function CategoryContainer(props) {
     currentPage: 1,
     limit: 12,
   });
+  const [loading, updateLoading] = React.useState(false);
 
   const callData = async () => {
+    updateLoading(true);
+
     const name = await getDetailCategory(id).then(({ data }) => data.data.name);
     const data = await getProductsByCategory(id, {
       params: { limit: pages.limit, page: page },
@@ -30,6 +33,11 @@ function CategoryContainer(props) {
   };
 
   React.useEffect(() => {
+    updateLoading(false);
+    console.log(loading);
+  }, [products]);
+
+  React.useEffect(() => {
     callData();
   }, [id, page]);
 
@@ -37,6 +45,7 @@ function CategoryContainer(props) {
     products,
     name,
     pages,
+    loading,
   });
 
   return <Category {..._exTract()} />;

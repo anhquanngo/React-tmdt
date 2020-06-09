@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { getImageUrl } from "../shared/utils";
+import { getImageUrl, formatPrice } from "../shared/utils";
 
 function ProductItem({ item }) {
   return (
@@ -15,7 +15,7 @@ function ProductItem({ item }) {
           </Link>
         </h4>
         <p>
-          Giá Bán: <span>{item.price}đ</span>
+          Giá Bán: <span>{formatPrice(item.price)}</span>
         </p>
       </div>
     </>

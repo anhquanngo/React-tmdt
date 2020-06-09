@@ -5,6 +5,8 @@ import AppRouter from "./routers";
 import { getCategories } from "./services/Server";
 import { Provider } from "react-redux";
 import store from "./redux-setup/store";
+import "owl.carousel/dist/assets/owl.carousel.css";
+import "owl.carousel/dist/assets/owl.theme.default.css";
 
 class App extends React.Component {
   state = {

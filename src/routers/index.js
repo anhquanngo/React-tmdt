@@ -1,7 +1,14 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 
-import { HomePage, NotFoundPage, Detail, Search, Category } from "../pages";
+import {
+  HomePage,
+  NotFoundPage,
+  Detail,
+  Search,
+  Category,
+  Cart,
+} from "../pages";
 
 class AppRouter extends React.Component {
   render() {
@@ -12,6 +19,7 @@ class AppRouter extends React.Component {
         <Route path="/product/:id" exact component={Detail} />
         <Route path="/search" exact component={Search} />
         <Route path="/categories/:id" exact component={Category} />
+        <Route path="/cart" exact component={Cart} />
         <Route path="*" render={() => <Redirect to="/404" />} />
       </Switch>
     );

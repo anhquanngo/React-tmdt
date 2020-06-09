@@ -1,5 +1,5 @@
 import React from "react";
-import { ProductItem } from "../../components";
+import { ProductItem, ProductItemSkeleton } from "../../components";
 
 class Home extends React.Component {
   _renderProducts = (products) => {
@@ -7,6 +7,7 @@ class Home extends React.Component {
       return <ProductItem key={product._id} item={product} />;
     });
   };
+
   render() {
     const { newProducts, featureProducts } = this.props;
     return (
@@ -14,13 +15,21 @@ class Home extends React.Component {
         <div className="products">
           <h3>Sản phẩm nổi bật</h3>
           <div className="product-list card-deck">
-            {this._renderProducts(newProducts)}
+            {newProducts.length ? (
+              this._renderProducts(newProducts)
+            ) : (
+              <ProductItemSkeleton loop={6} />
+            )}
           </div>
         </div>
         <div className="products">
           <h3>Sản phẩm mới</h3>
           <div className="product-list card-deck">
-            {this._renderProducts(featureProducts)}
+            {featureProducts.length ? (
+              this._renderProducts(featureProducts)
+            ) : (
+              <ProductItemSkeleton loop={6} />
+            )}
           </div>
         </div>
       </>

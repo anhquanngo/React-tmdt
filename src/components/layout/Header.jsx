@@ -1,6 +1,7 @@
 import React from "react";
 import logo from "../../assets/images/logo.png";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 class Header extends React.Component {
   constructor(props) {
@@ -18,7 +19,7 @@ class Header extends React.Component {
   };
 
   render() {
-    console.log(this.props);
+    const { totalItemCart } = this.props;
     return (
       <>
         <div id="header">
@@ -26,9 +27,9 @@ class Header extends React.Component {
             <div className="row">
               <div id="logo" className="col-lg-3 col-md-3 col-sm-12">
                 <h1>
-                  <a href="#">
+                  <Link to="/">
                     <img className="img-fluid" src={logo} />
-                  </a>
+                  </Link>
                 </h1>
               </div>
               <div id="search" className="col-lg-6 col-md-6 col-sm-12">
@@ -51,10 +52,10 @@ class Header extends React.Component {
                 </form>
               </div>
               <div id="cart" className="col-lg-3 col-md-3 col-sm-12">
-                <a className="mt-4 mr-2" href="#">
+                <Link to="/cart" className="mt-4 mr-2">
                   giỏ hàng
-                </a>
-                <span className="mt-3">8</span>
+                </Link>
+                <span className="mt-3">{totalItemCart}</span>
               </div>
             </div>
           </div>
@@ -73,4 +74,10 @@ class Header extends React.Component {
   }
 }
 
-export default withRouter(Header);
+const mapStateToProps = (state) => {
+  return {
+    totalItemCart: state.Cart.data.reduce((a, c) => a + c.quantity, 0),
+  };
+};
+
+export default connect(mapStateToProps)(withRouter(Header));
